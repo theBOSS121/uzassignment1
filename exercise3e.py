@@ -40,10 +40,10 @@ num_of_components, output, stats, centroids = cv2.connectedComponentsWithStats(i
 
 
 for i in range(1, num_of_components): # go through connected components
-    x = stats[i, cv2.CC_STAT_LEFT]
-    y = stats[i, cv2.CC_STAT_TOP]
-    w = stats[i, cv2.CC_STAT_WIDTH]
-    h = stats[i, cv2.CC_STAT_HEIGHT]
+    x = stats[i, cv2.CC_STAT_LEFT] - 5
+    y = stats[i, cv2.CC_STAT_TOP] - 5
+    w = stats[i, cv2.CC_STAT_WIDTH] + 10
+    h = stats[i, cv2.CC_STAT_HEIGHT] + 10
     area = stats[i, cv2.CC_STAT_AREA]
     (cx, cy) = centroids[i]
     print(x, y, w, h, area)

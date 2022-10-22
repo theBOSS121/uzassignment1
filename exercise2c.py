@@ -1,4 +1,4 @@
-# exercise 2.b
+# exercise 2.c
 from UZ_utils import *
 import numpy as np
 import cv2
@@ -22,30 +22,42 @@ def myhist(arr, n):
         counts[x] += 1
     return counts / len(arr)
 
+def myhist2(arr, n):
+    min = np.min(arr)
+    max = np.max(arr)
+    diff = max - min
+    print(min, max)    
+    arr = arr.reshape(-1)
+    arr = ((arr.astype(np.float64) - min) / diff) * (n-1)
+    arr = arr.astype(np.uint8)
+    counts = np.zeros(n, np.uint32)
+    for x in arr:
+        counts[x] += 1
+    return counts / len(arr)
+
 
 img = plt.imread('images/bird.jpg') # 0-255
 grey = rgb2gray(np.copy(img))
+grey = grey / 2 + 125
 
 f = plt.figure()
 f.add_subplot(2, 2, 1)
 plt.imshow(grey, cmap="gray")
 
-numOfBins = 256
+numOfBins = 100
 histogram = myhist(np.copy(grey), numOfBins)
-print(histogram, len(histogram))
+# print(histogram, len(histogram))
 
 f.add_subplot(2, 2, 2)
 plt.bar(np.arange(numOfBins), histogram)
 
 
-numOfBins = 25
-histogram = myhist(np.copy(grey), numOfBins)
-print(histogram, len(histogram))
+numOfBins = 100
+histogram = myhist2(np.copy(grey), numOfBins)
+# print(histogram, len(histogram))
 
 f.add_subplot(2, 2, 3)
 plt.bar(np.arange(numOfBins), histogram)
 
 plt.show()
 
-# The histograms are usually normalized by dividing the result by the sum of all cells. Why is that?
-# Probability distribution, easier to analise
